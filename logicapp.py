@@ -9,11 +9,13 @@ def opSpace():
     j = x.split(' ')
     ks = ['1', '2', '3', '4', '5', '6', '7', '8', '9','0']
     keluar = ['quit', 'close', 'end', 'keluar']
+    command = ['help', 'help-list']
     opm = ['+', '-', '*', '/']
 
-    # print(j)
+    print(j)
+    print (len(j))
     if j[0] == '//':
-        if j[1] == 'help': 
+        if j[1] in command: 
             print ('Help \n')
             print ('Tolong Aku! \n Aku Punya Ini! \n Aku Punya Ini \n Maju Maju Maju! \n Kerja Bagus! \n Mainnya Hebat!')
             op.opr()
@@ -22,6 +24,9 @@ def opSpace():
             global tx
             tx = False
             return tx
+        else: 
+            print ('Perintah', j[1], 'Tidak Dikenali, "// help" untuk meminta bantuan')
+
             # op.opr()
     # kr = list(x)
     
@@ -29,43 +34,69 @@ def opSpace():
     #skip to 75
 
     def pbr(): 
+        global runningKR
         runningKR = True
+        # perbandingan jika operator tidak dikenali maka perintah tidak akan dilaksanakan
+        if j[1] not in opm: 
+            print ('Operator', j[1], 'Tidak Di Kenali. Operator Disini Hanya Ada (+, -, *, /)')
+            runningKR = False
+
+        def operator():
+
+            global hasil
+            # print ('test')
+            if j[1] == opm[0]: 
+                hasil = int(j[0]) + int(j[2])
+            elif j[1] == opm[1]:
+                hasil = int(j[0]) - int(j[2])
+            elif j[1] == opm[2]:
+                hasil = int(j[0]) * int(j[2])
+            elif j[1] == opm[3]: 
+                hasil = int(j[0]) / int(j[2])
+            
+            if runningKR == True:
+                print (j[0], j[1], j[2], '=', hasil)
+            
+
+        
         if len(str(j[0])) > 1 | len(str(j[2])) == 1: 
             if  len(str(j[2])) > 1:
-                print (j[0], 'dan', j[2], 'memiliki value puluhan atau ratusan 1')
+                # print (j[0], 'dan', j[2], 'memiliki value puluhan atau ratusan 1\n')
+                operator()
+
+
             elif len(str(j[2])) == 1:
-                print (j[0], 'Memiliki Value Puluhan atau ratusan 1')
+                # print (j[0], 'Memiliki Value Puluhan atau ratusan 1\n')
+                operator()
+
 
         if len(str(j[2])) > 1 | len(str(j[0])) == 1: 
             if  len(str(j[1])) > 1:
-                print (j[0], 'dan', j[2], 'memiliki value puluhan atau ratusan 2')
+                # print (j[0], 'dan', j[2], 'memiliki value puluhan atau ratusan 2\n')
+                operator()
+
             elif len(str(j[1])) == 1:
-                print (j[2], 'Memiliki Value Puluhan atau ratusan 2')
+                # print (j[2], 'Memiliki Value Puluhan atau ratusan 2 \n')
+                operator()
+
+
 
         if len(str(j[0])) > 1 and len(str(j[2])) > 1:
-            print(j[0], 'dan', j[2], ', keduanya memiliki value puluhan atau ratusan x')
+            # print(j[0], 'dan', j[2], ', keduanya memiliki value puluhan atau ratusan x \n')
+            operator()
 
         if j[0] in ks:
         # print('Pihak Memakai Kalkulator')
             if j[1] in opm:
             
                 if j[2] in ks: 
-                    if j[1] == opm[0]: 
-                        hasil = int(j[0]) + int(j[2])
-                    elif j[1] == opm[1]:
-                        hasil = int(j[0]) - int(j[2])
-                    elif j[1] == opm[2]:
-                        hasil = int(j[0]) * int(j[2])
-                    elif j[1] == opm[3]: 
-                        hasil = int(j[0]) / int(j[2])
+                    operator()
                     
                 # detector
-                    if runningKR == True:
-                        print (j[0], j[1], j[2], '=', hasil)
+                # xyz = hasil
+                
 
-        if j[1] not in opm: 
-            print ('Operator', j[1], 'Tidak Di Kenali. Operator Disini Hanya Ada (+, -, *, /)')
-            runningKR = False
+        
     # JIKA ANGKA DI VALUE PERTAMA LEBIH DARI 9 ATAU BERVALUE PULUHAN ATAU RATUSAN
 
     # print(j)
@@ -73,8 +104,9 @@ def opSpace():
         # int(j[0]).isdigi
         pbr()
         # print ('pengguna menggunakan kalkulator')
-    else :
-        print ('pengguna tidak menggunakan kalkulator')
+    # else :
+    #     # print ('pengguna tidak menggunakan kalkulator')
+    #     print ('Perintah', j[1], 'Tidak Dikenali, "// help" untuk meminta bantuan')
 
 def isSpace(TrueOrFalse, value) :
     global x
